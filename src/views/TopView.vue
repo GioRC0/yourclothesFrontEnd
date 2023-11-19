@@ -1,6 +1,7 @@
 <script>
 import ToolbarYC from "@/components/ToolbarYC.vue";
 import PostsService from "@/services/Posts.service";
+import router from "@/router";
 
 export default {
   name: "TopView",
@@ -15,7 +16,13 @@ export default {
     this.postService = new PostsService();
     this.postService.getAll().then((response) => {
       this.posts = response.data;
+      console.log(this.posts)
     })
+  },
+  methods: {
+    goPostView(id){
+      router.push({name: 'PostView', params: {id}});
+    }
   }
 }
 </script>
@@ -26,7 +33,9 @@ export default {
 
   <div class="posts-container">
     <div v-for="post in posts" class="post">
-      <img alt="user header" :src="post.audiovisuals[0]" class="post-image"/>
+      <img alt="user header" :src=" 'http://localhost:5000/' + post.photo" class="post-image"
+      @click="goPostView(post._id)"
+      />
     </div>
   </div>
 </template>

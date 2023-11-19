@@ -3,7 +3,7 @@ import TopView from "@/views/TopView.vue"
 </script>
 
 <template>
-<TopView></TopView>
+  <router-view></router-view>
 </template>
 
 <style scoped>
