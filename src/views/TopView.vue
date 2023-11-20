@@ -1,6 +1,6 @@
 <script>
 import ToolbarYC from "@/components/ToolbarYC.vue";
-import PostsService from "@/services/Posts.service";
+import PostsService from "@/services/PostsService";
 import router from "@/router";
 
 export default {

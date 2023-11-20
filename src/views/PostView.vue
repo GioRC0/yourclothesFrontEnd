@@ -1,11 +1,11 @@
 <script lang="ts">
 import ToolbarYC from '@/components/ToolbarYC.vue';
 import router from "@/router";
-import PostsService from "@/services/Posts.service";
-import UserService from "@/services/User.service";
+import PostsService from "@/services/PostsService";
+import UserService from "@/services/UserService";
 import PostEntity from "@/entities/PostEntity"
 import CommentEntity from "@/entities/CommentEntity"
-import CommentService from "@/services/Comment.Service"
+import CommentService from "@/services/CommentService"
 import { idComputed } from '@/router';
 import {defineComponent} from 'vue'
 

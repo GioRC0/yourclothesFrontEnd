@@ -1,6 +1,6 @@
 <script lang="ts">
 import {defineComponent} from 'vue'
-import UserService from "@/services/User.service";
+import UserService from "@/services/UserService";
 
 export default defineComponent({
   name: "SignUpView",

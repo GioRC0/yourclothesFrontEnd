@@ -1,7 +1,7 @@
 <script lang="ts">
 import {defineComponent} from 'vue'
 import ToolbarYC from "@/components/ToolbarYC.vue";
-import PostsService from "@/services/Posts.service";
+import PostsService from "@/services/PostsService";
 import PostEntity from "@/entities/PostEntity"
 import mongoose from 'mongoose';
 export default defineComponent({
