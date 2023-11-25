@@ -1,5 +1,6 @@
 <script lang="ts">
 import {defineComponent} from 'vue'
+import router from "@/router";
 import UserService from "@/services/UserService";
 
 export default defineComponent({
@@ -40,6 +41,7 @@ export default defineComponent({
       this.userService.create(this.formData).then((response) => {
         console.log(response.data);
       });
+      router.push('/login')
     }
   }
 })
@@ -81,5 +83,10 @@ export default defineComponent({
 .header{
   width:100%;
   height: 100px;
+}
+@media screen and (max-width: 768px) {
+  .form {
+    padding: 1% 20%
+  }
 }
 </style>

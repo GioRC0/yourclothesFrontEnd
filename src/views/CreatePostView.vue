@@ -2,7 +2,8 @@
 import {defineComponent} from 'vue'
 import ToolbarYC from "@/components/ToolbarYC.vue";
 import PostsService from "@/services/PostsService";
-import PostEntity from "@/entities/PostEntity"
+import PostEntity from "@/entities/PostEntity";
+import router from "@/router";
 import mongoose from 'mongoose';
 export default defineComponent({
   name: "CreatePostView",
@@ -47,6 +48,7 @@ export default defineComponent({
       this.postService.createPost(this.formData).then((response) => {
         console.log(response.data);
       });
+      router.push('/top')
     }
   }
 })
@@ -83,5 +85,11 @@ export default defineComponent({
 .header{
   width:100%;
   height: 100px;
+}
+
+@media screen and (max-width: 768px) {
+  .form {
+    padding: 1% 20%
+  }
 }
 </style>

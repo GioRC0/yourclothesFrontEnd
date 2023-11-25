@@ -22,7 +22,6 @@ export default defineComponent({
       post: new PostEntity(),
       img: null,
       comments: [],
-      allPosts:[],
       newMessage: "",
       author : null,
       formData: new FormData()
@@ -53,17 +52,14 @@ export default defineComponent({
       })
       //console.log(this.post);
     });
-    this.postService.getAll().then((response)=>{
-      this.allPosts = response.data;
-    })
   },
   methods: {
     postComment() {
       if (this.newMessage == "") return;
-      let authorId = idComputed.value.substring(1, idComputed.value.length - 1);
+      let authorId = idComputed.value.replace(/"/g, '');
       this.userService.getById(authorId).then((response) => {
-
-        console.log(this.author)
+        this.author.name = response.data.name;
+        this.author.photo =  response.data.photo;
 
         let comment = new CommentEntity();
         comment.author = authorId;
@@ -108,12 +104,12 @@ export default defineComponent({
   <ToolbarYC></ToolbarYC>
   <div class="header"></div>
   <div class="post">
-    <div>
+    <div class="img-container">
       <img alt="post image" :src=" 'http://localhost:5000/' + post.photo" class="post-img"/>
     </div>
     <div class="post-info-section">
       <ScrollPanel
-          style="width: 500px; height: 500px; overflow-y: scroll"
+          style="max-width: 500px; height: 500px; overflow-y: scroll"
                    :pt="{
                         wrapper: {
                             style: { 'border-right': '10px solid var(--surface-ground)' }
@@ -138,9 +134,11 @@ export default defineComponent({
           </template>
         </Card>
       </ScrollPanel>
-      <div style="width: 500px; height: 100px;" class="comment-section">
-        <InputText type="text" v-model="newMessage" class="form-item" placeholder="Add a commentary"/>
-        <Button icon="pi pi-send" @click="postComment()"/>
+      <div style="max-width: 500px; height: 100px;" class="comment-section">
+        <div>
+          <InputText type="text" v-model="newMessage" class="form-item" placeholder="Add a commentary"/>
+          <Button icon="pi pi-send" @click="postComment()"/>
+        </div>
       </div>
     </div>
   </div>
@@ -159,8 +157,15 @@ export default defineComponent({
   width:40px;
   border-radius: 50px;
 }
-.post-img{
+.img-container{
   height: 600px;
+}
+.post-img{
+  width:100%;
+  height: auto;
+  display: block;
+  max-width: none;
+  max-height: 100%;
 }
 .p-card{
   border: none;
@@ -206,5 +211,20 @@ export default defineComponent({
 
 .post-info-section{
   border :1px solid #e0e0e0;
+}
+
+@media screen and (max-width: 768px){
+  .post {
+    display:block;
+  }
+
+  .form-item {
+    width: 360px;
+  }
+
+  .img-container {
+    height: auto;
+  }
+
 }
 </style>

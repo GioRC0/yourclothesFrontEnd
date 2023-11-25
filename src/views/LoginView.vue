@@ -12,21 +12,29 @@ export default defineComponent({
       email: "",
       password: "",
       userService: new UserService(),
+      wrongAccount: false,
+      wrongPassword: null
     }
   },
   methods: {
     logIn(){
       this.userService.getByEmail(this.email).then((response:any) => {
-        console.log(response.data)
         let pass = response.data;
-        console.log(pass)
+        if (pass === null) {
+          this.wrongAccount = true;
+          this.wrongPassword = false;
+          console.log(this.wrongAccount)
+          return;
+        }
+        this.wrongAccount = false;
         if(this.password === pass.password){
           isLoggedInComputed.value = true;
           idComputed.value = pass._id
           console.log(idComputed.value)
+          this.wrongPassword = false
           router.push('/top')
         }
-        else console.log('contrasela falsa')
+        else this.wrongPassword = true;
       })
     }
   }
@@ -39,6 +47,24 @@ export default defineComponent({
     <h1>YOUR CLOTHES</h1>
     <div><InputText type="text" v-model="email" class="form-item" placeholder="Email"/></div>
     <div><InputText type="password" v-model="password" class="form-item" placeholder="Password"/></div>
+    <Message v-if="wrongPassword"
+        :pt="{
+          wrapper: {
+            style: {
+              'padding': '5px'
+            }
+          }
+        }"
+        :closable="false" severity="error" class="errorMessage">Incorrect password</Message>
+    <Message v-if="wrongAccount"
+             :pt="{
+          wrapper: {
+            style: {
+              'padding': '5px'
+            }
+          }
+        }"
+             :closable="false" severity="warn" class="errorMessage">This email is not registered</Message>
     <div><Button type="submit" label="Submit" class="form-item" @click="logIn()"/></div>
     <p>Don't you have an account? </p>
     <router-link to="/signup">
@@ -63,5 +89,11 @@ export default defineComponent({
 .header{
   width:100%;
   height: 100px;
+}
+
+@media screen and (max-width: 768px) {
+  .form {
+    padding: 1% 20%
+  }
 }
 </style>

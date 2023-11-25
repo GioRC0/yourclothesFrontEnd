@@ -13,6 +13,7 @@ import SplitButton from "primevue/splitbutton";
 import Card from "primevue/card";
 import ScrollPanel from "primevue/scrollpanel";
 import Password from "primevue/password";
+import Message from "primevue/message";
 
 const app = createApp(App);
 app.use(PrimeVue);
@@ -24,5 +25,6 @@ app.component("SplitButton",SplitButton)
 app.component("Card",Card)
 app.component("ScrollPanel", ScrollPanel)
 app.component('Password', Password)
+app.component('Message', Message)
 
 app.mount('#app');
